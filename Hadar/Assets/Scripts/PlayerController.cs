@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -62,12 +61,14 @@ public class PlayerController : PhysicObject
         if (IsCollidingWithGround)
         {
             Velocity.y = jumpSpeed * power;
-            HasDoubleJumped = false;
         }
-        else if (!HasDoubleJumped)
+        else
         {
-            Velocity.y = jumpSpeed * power;
-            HasDoubleJumped = true;
+            if (!HasDoubleJumped)
+            {
+                Velocity.y = jumpSpeed * power;
+                HasDoubleJumped = true;
+            }
         }
     }
 
@@ -90,9 +91,14 @@ public class PlayerController : PhysicObject
             Jump();
         }
 
+        if (IsCollidingWithGround)
+        {
+            HasDoubleJumped = false;
+        }
+
         animator.SetBool(JumpAnimatorId, IsJumping);
         animator.SetBool(MoveAnimatorId, IsMoving);
         animator.SetBool(FallAnimatorId, IsFalling);
-        animator.SetBool(DoubleJumpAnimatorId, HasDoubleJumped);
+        animator.SetBool(DoubleJumpAnimatorId, IsJumping && HasDoubleJumped);
     }
 }

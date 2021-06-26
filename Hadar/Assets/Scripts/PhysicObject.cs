@@ -52,11 +52,11 @@ public abstract class PhysicObject : MonoBehaviour
     {
         var distance = move.magnitude;
 
-        var hits = new RaycastHit2D[16];
-        var hitCount = rb.Cast(move, contactFilter, hits, distance + 0.01f);
-
         if (distance > 0.01f)
         {
+            var hits = new RaycastHit2D[16];
+            var hitCount = rb.Cast(move, contactFilter, hits, distance + 0.01f);
+            
             for (var i = 0; i < hitCount; i++)
             {
                 var hit = hits[i];
