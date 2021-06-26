@@ -8,7 +8,6 @@ public class PlayerController : PhysicObject
 {
     [SerializeField] private float speed = 7f;
     [SerializeField] private float jumpSpeed = 7f;
-    [SerializeField] private Tilemap mapBorder;
 
     public bool IsMoving => Math.Abs(Velocity.x) > 0.01f;
     public bool IsJumping => !IsCollidingWithGround && Velocity.y > 0;

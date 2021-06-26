@@ -1,12 +1,12 @@
-using System;
 using UnityEngine;
 
+[ExecuteInEditMode]
 [RequireComponent(typeof(Camera))]
-public class CameraFollower2D : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     private Camera cam;
+    private GameObject player;
     
-    [SerializeField] private GameObject target;
     [SerializeField] private Vector2 offset;
 
     [SerializeField] private Vector2 minimum = Vector2.negativeInfinity;
@@ -15,11 +15,12 @@ public class CameraFollower2D : MonoBehaviour
     private void Awake()
     {
         cam = GetComponent<Camera>();
+        player = GameObject.FindWithTag("Player");
     }
 
     private void Update()
     {
-        var targetPosition = target.transform.position;
+        var targetPosition = player.transform.position;
         var nextPosition = new Vector3
         {
             x = targetPosition.x + offset.x,
