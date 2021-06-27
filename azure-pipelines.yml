@@ -18,11 +18,11 @@ steps:
     Contents: '**/*'
 - task: DeleteFiles@1
   inputs:
-   SourceFolder: '$(Build.Repository.LocalPath)\Hadar\Library'
-   Contents: '**/*'
+    SourceFolder: '$(Build.Repository.LocalPath)\Hadar\Library'
+    Contents: '**/*'
 - task: CmdLine@2
   inputs: 
-   script: 'if EXIST "$(Build.BinariesDirectory)\Library\" move "$(Build.BinariesDirectory)\Library" "$(Build.Repository.LocalPath)\Hadar\Library"'
+    script: 'if EXIST "$(Build.BinariesDirectory)\Library\" move "$(Build.BinariesDirectory)\Library" "$(Build.Repository.LocalPath)\Hadar\Library"'
 - task: UnityBuildTask@3
   inputs:
     buildTarget: 'WebGL'
