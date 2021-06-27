@@ -1,44 +1,34 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private Tilemap border;
+    [SerializeField] private GameObject spawn;
+    [SerializeField] private Player player;
     
-    private GameObject player;
-    private GameObject spawn;
-    
-    private SpriteRenderer playerRendered;
-    
-    private void Awake()
-    {
-        player = GameObject.FindWithTag("Player");
-        spawn = GameObject.FindWithTag("Spawn");
-    }
-
-    private void Start()
-    {
-        playerRendered = player.GetComponent<SpriteRenderer>();
-    }
+    public Player Player => player;
+    public GameObject Spawn => spawn;
+    public Checkpoint LastCheckpoint { get; set; }
 
     private void Update()
     {
         var position = player.transform.position;
+
         var tilePosition = border.WorldToCell(new Vector2
         {
             x = position.x,
             y = position.y
         });
-
+        
         if (border.HasTile(tilePosition))
         {
-            if (playerRendered.flipX)
+            if (!player.IsFlipped)
             {
-                playerRendered.flipX = false;
+                player.Flip();
             }
-        
-            player.transform.position = spawn.transform.position;
+            
+            player.transform.position = LastCheckpoint is null ? spawn.transform.position : LastCheckpoint.transform.position;
         }
     }
 }

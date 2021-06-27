@@ -60,7 +60,7 @@ public abstract class PhysicObject : MonoBehaviour
             for (var i = 0; i < hitCount; i++)
             {
                 var hit = hits[i];
-
+        
                 var current = hit.normal;
                 if (current.y > 0.75f)
                 {
