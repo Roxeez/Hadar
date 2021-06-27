@@ -23,12 +23,23 @@ public class LevelManager : MonoBehaviour
         
         if (border.HasTile(tilePosition))
         {
-            if (!player.IsFlipped)
+            if (player.IsFlipped)
             {
                 player.Flip();
             }
             
             player.transform.position = LastCheckpoint is null ? spawn.transform.position : LastCheckpoint.transform.position;
         }
+    }
+
+    public void Reset()
+    {
+        if (!player.IsFlipped)
+        {
+            player.Flip();
+        }
+        
+        LastCheckpoint = null;
+        Player.transform.position = spawn.transform.position;
     }
 }
