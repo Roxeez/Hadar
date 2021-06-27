@@ -58,7 +58,7 @@ jobs:
       env:
         REPO: self
         BRANCH: website
-        FOLDER: build
+        FOLDER: build/WebGL/WebGL
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Create Release
