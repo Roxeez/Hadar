@@ -23,3 +23,9 @@ steps:
 - task: CmdLine@2
   inputs: 
    script: 'if EXIST "$(Build.BinariesDirectory)\Library\" move "$(Build.BinariesDirectory)\Library" "$(Build.Repository.LocalPath)\Hadar\Library"'
+- task: UnityBuildTask@3
+  inputs:
+    buildTarget: 'WebGL'
+    unityProjectPath: 'Hadar'
+    outputPath: '$(Build.BinariesDirectory)\build'
+    outputFileName: 'Hadar'
