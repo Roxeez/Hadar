@@ -1,4 +1,4 @@
-# Hadar Project
+# Hadar
 A simple 2D platformer game made with Unity for learning purpose
 
 ## Preview
