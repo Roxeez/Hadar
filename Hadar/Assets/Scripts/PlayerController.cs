@@ -25,10 +25,10 @@ public class PlayerController : PhysicObject
 
     protected override void Awake()
     {
+        base.Awake();
+        
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        
-        base.Awake();
     }
 
     private void Move(float movement)
