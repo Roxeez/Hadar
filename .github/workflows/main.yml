@@ -53,9 +53,9 @@ jobs:
         path: build
 
     - name: Update preview
-        uses: s0/git-publish-subdir-action@develop
-        env:
-          REPO: git@github.com:Roxeez/Hadar-Preview.git
-          BRANCH: master
-          FOLDER: ${{ matrix.projectPath }} - ${{ matrix.targetPlatform }} 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: s0/git-publish-subdir-action@develop
+      env:
+        REPO: git@github.com:Roxeez/Hadar-Preview.git
+        BRANCH: master
+        FOLDER: ${{ matrix.projectPath }} - ${{ matrix.targetPlatform }} 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
