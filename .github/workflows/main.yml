@@ -52,11 +52,11 @@ jobs:
         name: ${{ matrix.projectPath }} - ${{ matrix.targetPlatform }}
         path: build
 
-    - name: Update preview
+    - name: Update WebGL preview
       if: ${{ matrix.targetPlatform == 'WebGL' }}
       uses: s0/git-publish-subdir-action@develop
       env:
-        REPO: git@github.com:Roxeez/Hadar-Preview.git
-        BRANCH: master
+        REPO: self
+        BRANCH: website
         FOLDER: build
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
