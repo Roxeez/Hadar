@@ -7,14 +7,14 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Tilemap border;
     
     private GameObject player;
-    private GameObject respawn;
+    private GameObject spawn;
     
     private SpriteRenderer playerRendered;
     
     private void Awake()
     {
         player = GameObject.FindWithTag("Player");
-        respawn = GameObject.FindWithTag("Respawn");
+        spawn = GameObject.FindWithTag("Spawn");
     }
 
     private void Start()
@@ -38,7 +38,7 @@ public class LevelManager : MonoBehaviour
                 playerRendered.flipX = false;
             }
         
-            player.transform.position = respawn.transform.position;
+            player.transform.position = spawn.transform.position;
         }
     }
 }
