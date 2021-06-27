@@ -58,3 +58,4 @@ jobs:
         BRANCH: website
         FOLDER: build/WebGL/WebGL
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        MESSAGE: Updating ${{ matrix.projectPath }} preview to {sha}
