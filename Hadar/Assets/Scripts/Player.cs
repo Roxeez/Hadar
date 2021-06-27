@@ -3,7 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class PlayerController : PhysicObject
+public class Player : PhysicObject
 {
     [SerializeField] private float speed = 7f;
     [SerializeField] private float jumpSpeed = 7f;
@@ -11,8 +11,8 @@ public class PlayerController : PhysicObject
     public bool IsMoving => Math.Abs(Velocity.x) > 0.01f;
     public bool IsJumping => !IsCollidingWithGround && Velocity.y > 0;
     public bool IsFalling => !IsCollidingWithGround && Velocity.y < 0;
-    public bool IsWallSliding => IsCollidingWithWall && IsFalling;
-    
+    public bool IsFlipped => spriteRenderer.flipX;
+
     public bool HasDoubleJumped { get; private set; }
 
     private Animator animator;
@@ -31,16 +31,21 @@ public class PlayerController : PhysicObject
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void Move(float movement)
+    public void Flip()
     {
-        if (movement < -0.1f)
+        spriteRenderer.flipX = !spriteRenderer.flipX;
+    }
+
+    public void Move(float power)
+    {
+        if (power < -0.1f)
         {
             if (!spriteRenderer.flipX)
             {
                 spriteRenderer.flipX = true;
             }
         }
-        else if (movement > 0.1f)
+        else if (power > 0.1f)
         {
             if (spriteRenderer.flipX)
             {
@@ -48,15 +53,15 @@ public class PlayerController : PhysicObject
             }
         }
 
-        Velocity.x = movement * speed;
+        Velocity.x = power * speed;
     }
 
-    private void Idle()
+    public void Idle()
     {
         Velocity.x = 0;
     }
 
-    private void Jump(float power = 1f)
+    public void Jump(float power = 1f)
     {
         if (IsCollidingWithGround)
         {
