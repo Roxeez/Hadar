@@ -10,6 +10,7 @@ jobs:
   build:
     name: Build for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
+    
     strategy:
       fail-fast: false
       matrix:
@@ -20,14 +21,16 @@ jobs:
         targetPlatform:
           - StandaloneWindows64
           - WebGL
+          
     steps:
-    
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
       with:
         fetch-depth: 0
         lfs: true
         
-    - uses: actions/cache@v2
+    - name: Loading/Saving cached files
+      uses: actions/cache@v2
       with:
         path: ${{ matrix.projectPath }}/Library
         key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
@@ -35,7 +38,8 @@ jobs:
           Library-${{ matrix.projectPath }}-
           Library-
 
-    - uses: game-ci/unity-builder@v2
+    - name: Building project
+      uses: game-ci/unity-builder@v2
       env:
         UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
       with:
@@ -43,7 +47,7 @@ jobs:
         unityVersion: ${{ matrix.unityVersion }}
         targetPlatform: ${{ matrix.targetPlatform }}
         
-    - uses: actions/upload-artifact@v2
+    - name: Uploading artefact
+      uses: actions/upload-artifact@v2
       with:
-        name: Build
-        path: build
+        name: ${{ matrix.projectPath }} - ${{ matrix.targetPlatform }}
