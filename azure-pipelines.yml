@@ -18,7 +18,7 @@ steps:
     Contents: '**/*'
 - task: DeleteFiles@1
   inputs:
-   SourceFolder: '$(Build.Repository.LocalPath)\Hadard\Library'
+   SourceFolder: '$(Build.Repository.LocalPath)\Hadar\Library'
    Contents: '**/*'
 - task: CmdLine@2
   inputs: 
@@ -27,5 +27,12 @@ steps:
   inputs:
     buildTarget: 'WebGL'
     unityProjectPath: 'Hadar'
-    outputPath: '$(Build.BinariesDirectory)\build'
+    outputPath: '$(Build.BinariesDirectory)'
     outputFileName: 'Hadar'
+- task: DeleteFiles@1
+  inputs:
+    SourceFolder: '$(Build.BinariesDirectory)\Library'
+    Contents: '**/*'
+- task: CmdLine@2
+  inputs:
+    script: 'move "$(Build.Repository.LocalPath)\Hadar\Library" "$(Build.BinariesDirectory)\Library"'
