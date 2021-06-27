@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  name: default
+  name: Default
   demands:
     Unity_2020.3.0f1
 
