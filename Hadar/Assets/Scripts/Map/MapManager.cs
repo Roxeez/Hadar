@@ -2,6 +2,7 @@
 using Entity;
 using Extension;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 namespace Map
@@ -48,7 +49,13 @@ namespace Map
 
         private void OnFinishReached()
         {
-            player.transform.position = startPoint;
+            var nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            if (SceneManager.sceneCountInBuildSettings <= nextSceneIndex)
+            {
+                nextSceneIndex = 0;
+            }
+            
+            SceneManager.LoadScene(nextSceneIndex);
         }
 
         private void OnCheckpointReached(Checkpoint checkpoint)
