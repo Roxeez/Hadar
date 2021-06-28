@@ -6,7 +6,7 @@ using Object = UnityEngine.Object;
 
 namespace Map
 {
-    public class GameManager : MonoBehaviour
+    public class MapManager : MonoBehaviour
     {
         private Start start;
         private Finish finish;
@@ -58,6 +58,11 @@ namespace Map
 
         private void OnMapBorderCollidedWithPlayer()
         {
+            if (player.IsFlipped)
+            {
+                player.Flip();
+            }
+            
             player.transform.position = respawnPoint;
         }
 
