@@ -6,8 +6,6 @@ namespace Entities
     /// <summary>
     /// Represent our Player
     /// </summary>
-    [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(SpriteRenderer))]
     public class Player : PhysicsEntity
     {
         [SerializeField] private float speed = 7f;

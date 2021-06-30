@@ -5,16 +5,15 @@ namespace Entities
     /// <summary>
     /// Represent an entity with physics applied to it
     /// </summary>
-    [RequireComponent(typeof(Rigidbody2D))]
     public abstract class PhysicsEntity : MonoBehaviour
     {
         [SerializeField]
         private float gravityMultiplier = 4f;
-    
+
         /// <summary>
         /// Velocity of this entity
         /// </summary>
-        protected Vector2 Velocity;
+        public Vector2 Velocity;
     
         /// <summary>
         /// Define if this entity is colliding with ground

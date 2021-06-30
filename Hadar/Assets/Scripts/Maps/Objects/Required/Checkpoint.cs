@@ -1,23 +1,23 @@
-﻿using UnityEngine;
+﻿using Extension;
+using UnityEngine;
 
-namespace Maps.Objects
+namespace Maps.Objects.Required
 {
     /// <summary>
     /// Represent a checkpoint
     /// </summary>
-    [RequireComponent(typeof(Animator))]
-    public class Checkpoint : MapObject
+    public class Checkpoint : TransparentMapObject
     {
-        private Animator animator;
-        private GameManager gameManager;
-
-        private bool reached;
-
         /// <summary>
         /// Spawn point of this checkpoint
         /// </summary>
         public Vector2 SpawnPoint { get; private set; }
 
+        private Animator animator;
+        private GameManager gameManager;
+        
+        private bool reached;
+        
         private void Awake()
         {
             animator = GetComponent<Animator>();
@@ -30,8 +30,13 @@ namespace Maps.Objects
             };
         }
 
-        protected override void OnCollisionWithPlayer()
+        protected override void OnCollision(Collider2D other)
         {
+            if (!other.IsPlayer())
+            {
+                return;
+            }
+            
             if (reached)
             {
                 return;

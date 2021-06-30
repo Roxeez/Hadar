@@ -1,12 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Maps.Objects
+namespace Maps.Objects.Required
 {
     /// <summary>
     /// Represent the spawn of a Map
     /// </summary>
-    public class Spawn : MapObject
+    public class Spawn : SolidMapObject
     {
         /// <summary>
         /// Spawn point of this checkpoint

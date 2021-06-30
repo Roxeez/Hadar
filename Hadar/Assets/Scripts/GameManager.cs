@@ -1,6 +1,8 @@
 ﻿using Entities;
 using Maps;
 using Maps.Objects;
+using Maps.Objects.Required;
+using Maps.Objects.Traps;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using SceneUtility = Utility.SceneUtility;
@@ -47,6 +49,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Respawn()
     {
+        foreach (var fallingPlatform in Map.FallingPlatforms)
+        {
+            fallingPlatform.Reset();
+        }
+        
         if (Player.IsFlipped)
         {
             Player.Flip();

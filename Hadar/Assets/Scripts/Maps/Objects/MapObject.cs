@@ -5,9 +5,6 @@ using Object = UnityEngine.Object;
 
 namespace Maps.Objects
 {
-    /// <summary>
-    /// Represent a map object how can collide with player (checkpoint, finish, entities)
-    /// </summary>
     public abstract class MapObject : MonoBehaviour
     {
         /// <summary>
@@ -18,49 +15,14 @@ namespace Maps.Objects
             get => transform.position;
             set => transform.position = value;
         }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                OnCollisionWithPlayer();
-            }
-        }
-
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            var collider2d = other.collider;
-            if (!collider2d.CompareTag("Player"))
-            {
-                return;
-            }
-
-            var contact = other.contacts[0].normal;
-            if (contact.y < 0)
-            {
-                OnTopCollisionWithPlayer();
-            }
-
-            OnCollisionWithPlayer();
-        }
+        
 
         /// <summary>
-        /// This method is called when player collide with this object
+        /// Method called when an collider collide with this object
         /// </summary>
-        protected virtual void OnCollisionWithPlayer()
-        {
-            
-        }
-
-        /// <summary>
-        /// This method is called when player collide with this object on the top edge
-        /// It will not be executed if Collider2D is set to IsTrigger
-        /// </summary>
-        protected virtual void OnTopCollisionWithPlayer()
-        {
-            
-        }
-
+        /// <param name="other">Collider colliding with this object</param>
+        protected abstract void OnCollision(Collider2D other);
+        
         /// <summary>
         /// Get an object of defined type in scene
         /// This method is a shortcut to SceneUtility#GetSceneObject

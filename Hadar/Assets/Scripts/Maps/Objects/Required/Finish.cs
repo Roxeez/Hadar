@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+﻿using Extension;
+using UnityEngine;
 
-namespace Maps.Objects
+namespace Maps.Objects.Required
 {
     /// <summary>
     /// Represent the finish line of a map
     /// </summary>
-    [RequireComponent(typeof(Animator))]
-    public class Finish : MapObject
+    public class Finish : SolidMapObject
     {
         private Animator animator;
         private GameManager gameManager;
@@ -19,8 +19,18 @@ namespace Maps.Objects
             gameManager = GetSceneObject<GameManager>();
         }
 
-        protected override void OnTopCollisionWithPlayer()
+        protected override void OnCollision(Collider2D other, CollisionSide side)
         {
+            if (side != CollisionSide.Top)
+            {
+                return;
+            }
+
+            if (!other.IsPlayer())
+            {
+                return;
+            }
+            
             if (reached)
             {
                 return;
