@@ -12,13 +12,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        projectPath:
-          - Hadar
-        unityVersion:
-          - 2020.3.0f1
-        targetPlatform:
-          - StandaloneWindows64
-          - WebGL
+        projectPath: [Hadar]
+        targetPlatform: [StandaloneWindows64, WebGL]
           
     steps:
     - name: Checkout repository
@@ -41,8 +36,9 @@ jobs:
         UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
       with:
         projectPath: ${{ matrix.projectPath }}
-        unityVersion: ${{ matrix.unityVersion }}
         targetPlatform: ${{ matrix.targetPlatform }}
+        unityVersion: auto
+        versioning: Semantic
         
     - name: Uploading artefact
       uses: actions/upload-artifact@v2
