@@ -1,7 +1,5 @@
-﻿using System;
-using Script.Game.Maps.Decoration;
+﻿using Script.Game.Maps.Decoration;
 using Script.Game.Maps.Trap;
-using Script.Utility;
 using UnityEngine;
 
 namespace Script.Game.Maps
@@ -26,14 +24,6 @@ namespace Script.Game.Maps
             Finale = FindObjectOfType<Finale>();
             Trampolines = FindObjectsOfType<Trampoline>();
             FallingPlatforms = FindObjectsOfType<FallingPlatform>();
-        }
-
-        private void Start()
-        {
-            Check.NotNull(Terrain, "Can't found MapTerrain object in scene");
-            Check.NotNull(Border, "Can't found MapBorder object in scene");
-            Check.NotNull(Spawn, "Can't found Spawn object in scene");
-            Check.NotNull(Finale, "Can't found Finale object in scene");
         }
     }
 }

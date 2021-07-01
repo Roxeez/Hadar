@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Script.Controller;
 using UnityEngine;
 
@@ -12,6 +13,13 @@ namespace Script.Game.Entities
         {
             controller = GetComponent<PlayerController>();
         }
+        
+        public int Health { get; private set; }
+
+        private void Start()
+        {
+            Health = 3;
+        }
 
         public void Bump(float power)
         {
@@ -21,6 +29,22 @@ namespace Script.Game.Entities
             });
         }
 
+        public void Freeze(bool value)
+        {
+            controller.Freeze(value);
+        }
+
+        public void Hit()
+        {
+            Health--;
+            Animator.SetTrigger("hit");
+
+            if (Health == 0)
+            {
+                Kill();
+            }
+        }
+
         public void Kill()
         {
             StartCoroutine(KillCoroutine());
@@ -28,21 +52,22 @@ namespace Script.Game.Entities
 
         private IEnumerator KillCoroutine()
         {
-            controller.Freeze(true);
+            Freeze(true);
             
             Animator.SetTrigger("disappear");
             yield return new WaitForSeconds(0.75f);
             
+            Health = 3;
+            SpriteRenderer.flipX = false;
+            
             Position = GameManager.LastCheckpoint != null
                 ? GameManager.LastCheckpoint.SpawnPoint
                 : GameManager.Map.Spawn.SpawnPoint;
-
-            SpriteRenderer.flipX = false;
             
             Animator.SetTrigger("appear");
             yield return new WaitForSeconds(0.50f);
             
-            controller.Freeze(false);
+            Freeze(false);
         }
     }
 }

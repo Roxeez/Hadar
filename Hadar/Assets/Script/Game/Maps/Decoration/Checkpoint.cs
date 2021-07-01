@@ -30,7 +30,7 @@ namespace Script.Game.Maps.Decoration
             IsReached = true;
             GameManager.LastCheckpoint = this;
             
-            Animator.SetBool("reached", IsReached);
+            Animator.SetTrigger("animate");
         }
     }
 }

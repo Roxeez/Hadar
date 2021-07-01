@@ -1,4 +1,6 @@
 ﻿using System;
+using Script.Enum;
+using Script.Extension;
 using Script.Game.Maps;
 using UnityEngine;
 
@@ -17,6 +19,21 @@ namespace Script.Game.Maps.Decoration
                 x = Position.x + offset.x,
                 y = Position.y + offset.y
             };
+        }
+
+        protected override void OnCollision(Collider2D other, CollisionSide side)
+        {
+            if (!other.IsPlayer())
+            {
+                return;
+            }
+
+            if (side != CollisionSide.Top)
+            {
+                return;
+            }
+            
+            Animator.SetTrigger("animate");
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using Script.Extension;
+﻿using Script.Extension;
 using UnityEngine;
 
 namespace Script.Game.Maps
