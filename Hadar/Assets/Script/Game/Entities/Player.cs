@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Script.Controller;
+using Script.Extension;
 using UnityEngine;
 
 namespace Script.Game.Entities
@@ -13,61 +14,54 @@ namespace Script.Game.Entities
         {
             controller = GetComponent<PlayerController>();
         }
-        
-        public int Health { get; private set; }
 
-        private void Start()
+        public void Bump(Vector2 vector)
         {
-            Health = 3;
-        }
-
-        public void Bump(float power)
-        {
-            controller.AddForce(new Vector2
-            {
-                y = power
-            });
-        }
-
-        public void Freeze(bool value)
-        {
-            controller.Freeze(value);
-        }
-
-        public void Hit()
-        {
-            Health--;
-            Animator.SetTrigger("hit");
-
-            if (Health == 0)
-            {
-                Kill();
-            }
+            controller.AddForce(vector);
         }
 
         public void Kill()
         {
-            StartCoroutine(KillCoroutine());
+            StartCoroutine(ExecuteWithTransition(() =>
+            {
+                GameManager.Map.ResetTraps();
+                
+                SpriteRenderer.flipX = false;
+                Position = GameManager.LastCheckpoint != null 
+                    ? GameManager.LastCheckpoint.SpawnPoint 
+                    : GameManager.Map.Spawn.SpawnPoint;
+            }));
         }
 
-        private IEnumerator KillCoroutine()
+        public void Teleport(Vector2 destination)
         {
-            Freeze(true);
-            
-            Animator.SetTrigger("disappear");
-            yield return new WaitForSeconds(0.75f);
-            
-            Health = 3;
-            SpriteRenderer.flipX = false;
-            
-            Position = GameManager.LastCheckpoint != null
-                ? GameManager.LastCheckpoint.SpawnPoint
-                : GameManager.Map.Spawn.SpawnPoint;
-            
-            Animator.SetTrigger("appear");
-            yield return new WaitForSeconds(0.50f);
-            
-            Freeze(false);
+            StartCoroutine(ExecuteWithTransition(() =>
+            {
+                Position = destination;
+            }));
         }
+        
+        private IEnumerator ExecuteWithTransition(Action action, bool withPlayer = true)
+        {
+            if (withPlayer)
+            {
+                controller.Freeze = true;
+                yield return Animator.TriggerAndWait("disappear");
+            }
+            
+            yield return GameManager.Scene.FadeOut();
+
+            action();
+
+            yield return GameManager.Scene.FadeIn();
+
+            if (withPlayer)
+            {
+                yield return Animator.TriggerAndWait("appear");
+                controller.Freeze = false;
+            }
+        }
+        
+        
     }
 }

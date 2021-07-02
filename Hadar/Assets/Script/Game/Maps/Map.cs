@@ -25,5 +25,13 @@ namespace Script.Game.Maps
             Trampolines = FindObjectsOfType<Trampoline>();
             FallingPlatforms = FindObjectsOfType<FallingPlatform>();
         }
+
+        public void ResetTraps()
+        {
+            foreach (var platform in FallingPlatforms)
+            {
+                platform.Reset();
+            }
+        }
     }
 }

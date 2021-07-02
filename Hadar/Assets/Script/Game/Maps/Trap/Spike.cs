@@ -8,13 +8,12 @@ namespace Script.Game.Maps.Trap
     {
         protected override void OnCollision(Collider2D other, CollisionSide side)
         {
-            if (!other.IsPlayer() || side != CollisionSide.Top)
+            if (!other.IsPlayer())
             {
                 return;
             }
             
-            GameManager.Player.Hit();
-            GameManager.Player.Bump(12.5f);
+            GameManager.Player.Kill();
         }
     }
 }

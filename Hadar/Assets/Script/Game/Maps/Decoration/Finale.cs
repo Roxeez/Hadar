@@ -19,7 +19,6 @@ namespace Script.Game.Maps.Decoration
             }
             
             Animator.SetTrigger("animate");
-            GameManager.Player.Freeze(true);
         }
     }
 }

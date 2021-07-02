@@ -23,23 +23,30 @@ namespace Script.Controller
 
         public bool CanMove { get; set; } = true;
 
+        private bool freeze;
+        public bool Freeze
+        {
+            get => freeze;
+            set
+            {
+                if (value)
+                {
+                    rb.bodyType = RigidbodyType2D.Static;
+                    CanMove = false;
+                }
+                else
+                {
+                    rb.bodyType = RigidbodyType2D.Kinematic;
+                    CanMove = true;
+                }
+
+                freeze = value;
+            }
+        }
+
         public void AddForce(Vector2 force)
         {
             velocity += force;
-        }
-
-        public void Freeze(bool value)
-        {
-            if (value)
-            {
-                rb.bodyType = RigidbodyType2D.Static;
-                CanMove = false;
-            }
-            else
-            {
-                rb.bodyType = RigidbodyType2D.Kinematic;
-                CanMove = true;
-            }
         }
 
         private void Start()
@@ -74,7 +81,7 @@ namespace Script.Controller
                     animator.SetTrigger("double jump");
                 }
             }
-            
+
             velocity.x = Mathf.Abs(horizontal) > 0.1f ? horizontal * movementSpeed : 0;
 
             if (grounded)

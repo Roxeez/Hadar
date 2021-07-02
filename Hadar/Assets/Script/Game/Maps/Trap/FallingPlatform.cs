@@ -9,6 +9,7 @@ namespace Script.Game.Maps.Trap
 {
     public class FallingPlatform : MapObject
     {
+        [SerializeField] private float delay = 1.0f;
         [SerializeField] private float fallSpeed = 20.0f;
         
         private Vector2 startPosition;
@@ -16,37 +17,42 @@ namespace Script.Game.Maps.Trap
         private void Start()
         {
             startPosition = Position;
-            
+
             Physics2D.IgnoreCollision(Collider, GameManager.Map.Terrain.Collider);
             Physics2D.IgnoreCollision(Collider, GameManager.Map.Border.Collider);
         }
 
         protected override void OnCollision(Collider2D other, CollisionSide side)
         {
-            if (!other.IsPlayer() || side != CollisionSide.Top)
+            if (other.IsPlayer() && side == CollisionSide.Top)
             {
-                return;
+                StartCoroutine(ScheduledFalling());
             }
-
-            StartCoroutine(ScheduledFalling());
         }
 
         private IEnumerator ScheduledFalling()
         {
-            Animator.SetTrigger("activated");
+            Animator.SetTrigger("fall");
             
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(delay);
             
-            Rigidbody.isKinematic = false;
+            Rigidbody.bodyType = RigidbodyType2D.Kinematic;
             Rigidbody.velocity = new Vector2(0, -fallSpeed);
+
+            yield return new WaitForSeconds(5);
+
+            Rigidbody.bodyType = RigidbodyType2D.Static;
+            Rigidbody.velocity = Vector2.zero;
         }
 
-        protected override void Reset()
+        public override void Reset()
         {
             Rigidbody.velocity = Vector2.zero;
-            Rigidbody.isKinematic = true;
+            Rigidbody.bodyType = RigidbodyType2D.Static;
 
             Position = startPosition;
+            
+            StopCoroutine(ScheduledFalling());
         }
     }
 }

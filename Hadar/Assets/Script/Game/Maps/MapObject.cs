@@ -6,6 +6,7 @@ namespace Script.Game.Maps
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(BoxCollider2D))]
     [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(SpriteRenderer))]
     public abstract class MapObject : MonoBehaviour
     {
         private void Awake()
@@ -13,6 +14,7 @@ namespace Script.Game.Maps
             Animator = GetComponent<Animator>();
             Collider = GetComponent<BoxCollider2D>();
             Rigidbody = GetComponent<Rigidbody2D>();
+            SpriteRenderer = GetComponent<SpriteRenderer>();
             GameManager = FindObjectOfType<GameManager>();
             
             OnAwake();
@@ -21,12 +23,19 @@ namespace Script.Game.Maps
         protected Animator Animator { get; private set; }
         protected Rigidbody2D Rigidbody { get; private set; }
         protected Collider2D Collider { get; private set; }
+        protected SpriteRenderer SpriteRenderer { get; private set; }
         protected GameManager GameManager { get; private set; }
         
         public Vector2 Position
         {
             get => transform.position;
             set => transform.position = value;
+        }
+
+        public Quaternion Rotation
+        {
+            get => transform.rotation;
+            set => transform.rotation = value;
         }
 
         protected virtual void OnAwake()
@@ -65,7 +74,7 @@ namespace Script.Game.Maps
 
         }
         
-        protected virtual void Reset()
+        public virtual void Reset()
         {
             
         }

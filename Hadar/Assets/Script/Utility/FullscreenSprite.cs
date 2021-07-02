@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Script.Scene
+namespace Script.Utility
 {
     [ExecuteInEditMode]
     public class FullscreenSprite : MonoBehaviour

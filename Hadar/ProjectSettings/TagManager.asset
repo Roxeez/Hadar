@@ -44,9 +44,18 @@ TagManager:
   - name: Background
     uniqueID: 1065670435
     locked: 0
-  - name: Terrain
+  - name: Terrain Back
     uniqueID: 2577519567
     locked: 0
   - name: Player
     uniqueID: 2507629819
+    locked: 0
+  - name: Terrain Front
+    uniqueID: 2614808405
+    locked: 0
+  - name: UI
+    uniqueID: 1578617261
+    locked: 0
+  - name: Game Scene
+    uniqueID: 2820435577
     locked: 0
