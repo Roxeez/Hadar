@@ -14,6 +14,8 @@ namespace Script.Game.Entities
         {
             controller = GetComponent<PlayerController>();
         }
+        
+        public bool IsDead { get; private set; }
 
         public void Bump(Vector2 vector)
         {
@@ -22,6 +24,13 @@ namespace Script.Game.Entities
 
         public void Kill()
         {
+            if (IsDead)
+            {
+                return;
+            }
+
+            IsDead = true;
+            
             StartCoroutine(ExecuteWithTransition(() =>
             {
                 GameManager.Map.ResetTraps();
@@ -30,6 +39,8 @@ namespace Script.Game.Entities
                 Position = GameManager.LastCheckpoint != null 
                     ? GameManager.LastCheckpoint.SpawnPoint 
                     : GameManager.Map.Spawn.SpawnPoint;
+
+                IsDead = false;
             }));
         }
 
