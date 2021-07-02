@@ -3,8 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Spawn
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -12,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - Map Border
+  - 
   - 
   - 
   - 
@@ -43,11 +42,20 @@ TagManager:
     uniqueID: 0
     locked: 0
   - name: Background
-    uniqueID: 2685922843
+    uniqueID: 1065670435
     locked: 0
-  - name: Foreground
-    uniqueID: 1166688923
+  - name: Terrain Back
+    uniqueID: 2577519567
+    locked: 0
+  - name: Player
+    uniqueID: 2507629819
+    locked: 0
+  - name: Terrain Front
+    uniqueID: 2614808405
     locked: 0
   - name: UI
-    uniqueID: 3860964681
+    uniqueID: 1578617261
+    locked: 0
+  - name: Game Scene
+    uniqueID: 2820435577
     locked: 0
